@@ -50,23 +50,35 @@ public class FileUploadController : ControllerBase
             _logger.LogError(ex, "An unexpected error occurred while uploading files.");
             return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
         }
-
     }
 
     [HttpGet("{trackingId}")]
     public async Task<IActionResult> GetUploadStatus(string trackingId)
     {
-        if (string.IsNullOrEmpty(trackingId)) 
+        try
         {
-            _logger.LogWarning("Invalid User ID: {TrackingId}", trackingId);
-            return BadRequest("TrackingId is required");
+            if (string.IsNullOrEmpty(trackingId))
+            {
+                _logger.LogWarning("Invalid User ID: {TrackingId}", trackingId);
+                return BadRequest("TrackingId is required");
+            }
+
+            var isComplete = await _service.IsUploadCompleteAsync(trackingId);
+            return Ok(new UploadStatus
+            {
+                TrackingId = trackingId,
+                IsComplete = isComplete
+            });
         }
-       
-        var isComplete = await _service.IsUploadCompleteAsync(trackingId);
-        return Ok(new UploadStatus
+        catch (ArgumentException ex)
         {
-            TrackingId = trackingId,
-            IsComplete = isComplete
-        });
+            _logger.LogWarning(ex.Message);
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occurred while getting upload status.");
+            return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+        }
     }
 }

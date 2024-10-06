@@ -39,7 +39,10 @@ public class FileUploadService : IFileUploadService
     public async Task<bool> IsUploadCompleteAsync(string trackingId)
     {
         var record = await _repository.GetUploadRecordAsync(trackingId);
-        return record?.IsComplete ?? false;
+
+        return record == null
+            ? throw new ArgumentException($"No entry with trackingId:{trackingId} exist")
+            : record.IsComplete;
     }
 
     public async Task<bool> NotifyIfCompleteAsync(string userIdString, string customerIdString, string trackingId)
