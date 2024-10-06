@@ -16,7 +16,7 @@ AsuroCodingChallenge is a .NET-based web application designed to handle file upl
 
 ## Features
 
-- File upload with tracking
+- File upload with status tracking
 - User and customer management
 - In-memory database for data storage
 - Error handling and logging
