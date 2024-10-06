@@ -55,7 +55,7 @@ The project is structured into four main components:
    ```bash
    dotnet run --project AsuroCodingChallenge.API
 
-##Docker
+### Docker
 To build and run the application using Docker, follow these steps:
 
 1. Ensure Docker is running on your machine.
