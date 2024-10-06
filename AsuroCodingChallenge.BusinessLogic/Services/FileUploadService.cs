@@ -24,7 +24,7 @@ public class FileUploadService : IFileUploadService
         if (!Guid.TryParse(customerIdString, out Guid customerId) || customerId == Guid.Empty)
         {
             _logger.LogWarning("Invalid Customer ID: {CustomerId}", customerIdString);
-            throw new ArgumentException("Invalid Customer ID.", nameof(customerIdString));
+            throw new ArgumentException("Invalid Customer ID.");
         }
 
         var trackingId = $"{userId}_{customerId}_{Guid.NewGuid()}";
@@ -46,12 +46,12 @@ public class FileUploadService : IFileUploadService
     {
         if (!Guid.TryParse(userIdString, out Guid userId) || userId == Guid.Empty)
         {
-            throw new ArgumentException("Invalid User ID.", nameof(userIdString));
+            throw new ArgumentException("Invalid User ID.");
         }
 
         if (!Guid.TryParse(customerIdString, out Guid customerId) || customerId == Guid.Empty)
         {
-            throw new ArgumentException("Invalid Customer ID.", nameof(customerIdString));
+            throw new ArgumentException("Invalid Customer ID.");
         }
 
         if (await IsUploadCompleteAsync(trackingId))
