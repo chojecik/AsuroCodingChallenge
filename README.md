@@ -10,9 +10,6 @@ AsuroCodingChallenge is a .NET-based web application designed to handle file upl
 - [Architecture](#architecture)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
-- [API Documentation](#api-documentation)
-- [Testing](#testing)
-- [Docker](#docker)
 
 ## Features
 
